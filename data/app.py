@@ -7,12 +7,12 @@ st.set_page_config(page_title="IPL Analytics Dashboard", layout="wide")
 st.title("🏏 IPL Advanced Analytics Dashboard")
 st.caption("Built by Pranav Iyer | Python • Power BI • Streamlit")
 
-batters = pd.read_csv("final_batter_analysis.csv")
-bowlers = pd.read_csv("bowling_analysis.csv")
-venue_scores = pd.read_csv("venue_average_scores.csv")
-venue_chasing = pd.read_csv("venue_chasing_analysis.csv")
-strategy = pd.read_csv("match_strategy_analysis.csv")
-phase = pd.read_csv("phase_analysis.csv")
+batters = pd.read_csv("data/final_batter_analysis.csv")
+bowlers = pd.read_csv("data/bowling_analysis.csv")
+venue_scores = pd.read_csv("data/venue_average_scores.csv")
+venue_chasing = pd.read_csv("data/venue_chasing_analysis.csv")
+strategy = pd.read_csv("data/match_strategy_analysis.csv")
+phase = pd.read_csv("data/phase_analysis.csv")
 
 st.sidebar.header("Filters")
 
@@ -22,17 +22,17 @@ selected_team = st.sidebar.selectbox("Select Team", ["All"] + teams)
 venues = sorted(venue_scores["venue"].unique())
 selected_venue = st.sidebar.selectbox("Select Venue", ["All"] + venues)
 
-if selected_team != "All":
-    phase_view = phase[phase["batting_team"] == selected_team]
-else:
-    phase_view = phase
+phase_view = phase if selected_team == "All" else phase[phase["batting_team"] == selected_team]
 
-if selected_venue != "All":
-    venue_scores_view = venue_scores[venue_scores["venue"] == selected_venue]
-    venue_chasing_view = venue_chasing[venue_chasing["venue"] == selected_venue]
-else:
-    venue_scores_view = venue_scores
-    venue_chasing_view = venue_chasing
+venue_scores_view = (
+    venue_scores if selected_venue == "All"
+    else venue_scores[venue_scores["venue"] == selected_venue]
+)
+
+venue_chasing_view = (
+    venue_chasing if selected_venue == "All"
+    else venue_chasing[venue_chasing["venue"] == selected_venue]
+)
 
 col1, col2, col3 = st.columns(3)
 col1.metric("Total Batters", len(batters))
