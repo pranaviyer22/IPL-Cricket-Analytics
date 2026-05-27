@@ -90,8 +90,9 @@ The project is deployed publicly using Streamlit Community Cloud.
 ---
 
 # 📸 Dashboard Preview
+<img width="1578" height="770" alt="Screenshot 2026-05-27 093700" src="https://github.com/user-attachments/assets/3b0984bb-b857-47a9-9b03-f26400792f12" />
 
-(Add your dashboard screenshots here later)
+
 
 ---
 
